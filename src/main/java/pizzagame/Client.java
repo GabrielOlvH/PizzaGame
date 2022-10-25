@@ -13,7 +13,6 @@ public class Client extends JFrame {
     private Thread mainThread;
 
     public void start() {
-        System.setProperty("sun.java2d.noddraw", "true");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         try {
@@ -43,9 +42,14 @@ public class Client extends JFrame {
         repaint();
     }
 
+    public void setContentPaneFix(JPanel pane) {
+        System.setProperty("sun.java2d.noddraw", "true");
+        setContentPane(pane);
+    }
+
     public void startGame(String playerName) {
         game = new Game(this, playerName);
-        setContentPane(game.getScreen());
+        setContentPaneFix(game.getScreen());
         game.getScreen().requestFocus();
         mainThread = new Thread(() -> {
             while (true) {
@@ -69,12 +73,12 @@ public class Client extends JFrame {
 
     public void stopGame(JPanel newScreen) {
         if (newScreen != null)
-            setContentPane(newScreen);
-        pack();
-        setSize(new Dimension(600, 800));
+            setContentPaneFix(newScreen);
         mainThread.stop();
         mainThread = null;
         game = null;
+        repaint();
+        validate();
     }
 
     public static void main(String[] args) {

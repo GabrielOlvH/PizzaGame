@@ -9,6 +9,16 @@ public class Entity {
 
     protected Sprite sprite;
 
+    private boolean discarded;
+
+    public boolean isDiscarded() {
+        return discarded;
+    }
+
+    public void discard() {
+        this.discarded = true;
+    }
+
     public int getX() {
         return x;
     }
@@ -40,5 +50,13 @@ public class Entity {
     public void draw(Graphics g) {
         if (sprite != null)
             g.drawImage(sprite.getImage(), x, y, sprite.getWidth(), sprite.getHeight(), null);
+    }
+
+    public void drawMouseOver(Graphics g, Point p) {
+
+    }
+
+    public boolean isPointOver(int x, int y) {
+        return x > this.x && x < this.x + getWidth() && y > this.y && y < this.y + getHeight();
     }
 }
