@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 public class GameScreen extends JPanel {
-    private static final Sprite GAME_BACKGROUND = new Sprite("/assets/game.png", 1920, 1080);
+    private static final Sprite GAME_BACKGROUND = new Sprite("/assets/new_game.png", 1920, 1080);
 
     private final Game game;
     private JButton backToMenu;

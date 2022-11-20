@@ -27,28 +27,28 @@ public class Game {
         PizzaEntity e = new PizzaEntity();
         entities.add(e);
         e.setX(240);
-        e.setY(640);
+        e.setY(800);
 
         for (int i = 0; i < Ingredient.ALL.length; i++) {
             Ingredient ing = Ingredient.ALL[i];
             int x = i % 8;
             int y = i / 8;
-            entities.add(ing.createEntity(740+ x*140 - (ing.getSprite().getWidth()-96)/2, 600+ y*140 -(ing.getSprite().getHeight()-96)/2, 5));
+            entities.add(ing.createEntity(740+ x*140 - (ing.getSprite().getWidth()-96)/2, 790+ y*140 -(ing.getSprite().getHeight()-96)/2, 5));
         }
 
         SauceJarEntity cheeseJar = new SauceJarEntity(new Sprite("/assets/ingredients/cheese_sauce.png", 582 / 6, 924 / 6), PizzaType.CHEESE);
-        cheeseJar.setX(120);
-        cheeseJar.setY(380);
+        cheeseJar.setX(20);
+        cheeseJar.setY(680);
         entities.add(cheeseJar);
 
         SauceJarEntity tomatoJar = new SauceJarEntity(new Sprite("/assets/ingredients/tomato_sauce.png", 582 / 6, 924 / 6), PizzaType.TOMATO);
-        tomatoJar.setX(260);
-        tomatoJar.setY(380);
+        tomatoJar.setX(20);
+        tomatoJar.setY(800);
         entities.add(tomatoJar);
 
         SauceJarEntity chocolateJar = new SauceJarEntity(new Sprite("/assets/ingredients/chocolate_sauce.png", 582 / 6, 924 / 6), PizzaType.CHOCOLATE);
-        chocolateJar.setX(400);
-        chocolateJar.setY(380);
+        chocolateJar.setX(20);
+        chocolateJar.setY(920);
         entities.add(chocolateJar);
     }
 
@@ -70,7 +70,6 @@ public class Game {
 
     public void tick() {
         entities.removeIf(Entity::isDiscarded);
-
     }
 }
 
