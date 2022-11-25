@@ -16,6 +16,7 @@ public class GameScreen extends JPanel {
 
     private final Game game;
     private JButton backToMenu;
+    private JButton addPizzaButton;
 
     public GameScreen(Game game) {
         this.game = game;
@@ -32,6 +33,16 @@ public class GameScreen extends JPanel {
             }
         });
         add(this.backToMenu);
+        this.addPizzaButton = new MenuButton("NEW PIZZA");
+
+        this.addPizzaButton.setFont(Client.FONT.deriveFont(30f));
+        this.addPizzaButton.setBounds(game.getClient().getWidth() - 600, 500, 450, 100);
+        this.addPizzaButton.addActionListener((e) -> {
+            if (e.getID() == ActionEvent.ACTION_PERFORMED) {
+                game.addPizzaDough();
+            }
+        });
+        add(this.addPizzaButton);
     }
 
     @Override

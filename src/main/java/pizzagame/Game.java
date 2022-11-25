@@ -1,9 +1,6 @@
 package pizzagame;
 
-import pizzagame.entity.Entity;
-import pizzagame.entity.IngredientEntity;
-import pizzagame.entity.PizzaEntity;
-import pizzagame.entity.SauceJarEntity;
+import pizzagame.entity.*;
 import pizzagame.screens.GameScreen;
 
 import java.util.ArrayList;
@@ -24,10 +21,10 @@ public class Game {
         this.screen = new GameScreen(this);
         this.entities = new ArrayList<>();
 
-        PizzaEntity e = new PizzaEntity();
-        entities.add(e);
-        e.setX(240);
-        e.setY(800);
+        TrashCanEntity trashCan = new TrashCanEntity();
+        trashCan.setX(200);
+        trashCan.setY(600);
+        entities.add(trashCan);
 
         for (int i = 0; i < Ingredient.ALL.length; i++) {
             Ingredient ing = Ingredient.ALL[i];
@@ -50,6 +47,15 @@ public class Game {
         chocolateJar.setX(20);
         chocolateJar.setY(920);
         entities.add(chocolateJar);
+    }
+
+    public void addPizzaDough() {
+        if (entities.stream().noneMatch(e -> e instanceof PizzaEntity)) {
+            PizzaEntity e = new PizzaEntity();
+            entities.add(1, e);
+            e.setX(240);
+            e.setY(800);
+        }
     }
 
     public Client getClient() {

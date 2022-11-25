@@ -37,6 +37,9 @@ public class PizzaEntity extends DraggableEntity {
 
     @Override
     public boolean dropInto(Entity entity) {
+        if (entity instanceof TrashCanEntity){
+            discard();
+        }
         return false;
     }
 }
