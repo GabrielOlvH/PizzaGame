@@ -1,6 +1,7 @@
 package pizzagame.entity;
 
 import pizzagame.Client;
+import pizzagame.Game;
 import pizzagame.Ingredient;
 import pizzagame.Sprite;
 
@@ -11,7 +12,8 @@ public class IngredientEntity extends DraggableEntity {
     private final Ingredient ingredient;
     private int count;
 
-    public IngredientEntity(Ingredient ingredient, Sprite sprite, int count) {
+    public IngredientEntity(Game game, Ingredient ingredient, Sprite sprite, int count) {
+        super(game);
         this.sprite = sprite;
         this.ingredient = ingredient;
         this.count = count;
@@ -19,8 +21,7 @@ public class IngredientEntity extends DraggableEntity {
 
     @Override
     public boolean dropInto(Entity entity) {
-        if (entity instanceof PizzaEntity pizza) {
-            pizza.getIngredients().add(ingredient);
+        if (entity instanceof PizzaEntity pizza && pizza.addIngredient(ingredient)) {
             count--;
             if (count <= 0) {
                 discard();
@@ -38,6 +39,7 @@ public class IngredientEntity extends DraggableEntity {
         super.draw(g);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setFont(Client.FONT.deriveFont(20f));
+        g.setColor(Color.BLACK);
         g.drawString(count+"", getX() + getWidth() - g.getFontMetrics().stringWidth(count+""), getY() + getHeight());
     }
 

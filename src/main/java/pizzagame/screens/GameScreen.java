@@ -24,7 +24,7 @@ public class GameScreen extends JPanel {
         GameMouseListener mouseListener = new GameMouseListener(game);
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
-        this.backToMenu = new MenuButton("BACK TO MENU");
+        this.backToMenu = new MenuButton("MENU");
         this.backToMenu.setFont(Client.FONT.deriveFont(30f));
         this.backToMenu.setBounds(game.getClient().getWidth() - 450, 0, 450, 100);
         this.backToMenu.addActionListener((e) -> {
@@ -33,8 +33,8 @@ public class GameScreen extends JPanel {
             }
         });
         add(this.backToMenu);
-        this.addPizzaButton = new MenuButton("NEW PIZZA");
 
+        this.addPizzaButton = new MenuButton("NEW PIZZA");
         this.addPizzaButton.setFont(Client.FONT.deriveFont(30f));
         this.addPizzaButton.setBounds(game.getClient().getWidth() - 600, 500, 450, 100);
         this.addPizzaButton.addActionListener((e) -> {
@@ -56,5 +56,9 @@ public class GameScreen extends JPanel {
                 e.drawMouseOver(g, p);
             }
         });
+
+        g.setFont(Client.FONT.deriveFont(12f));
+        g.setColor(Color.BLACK);
+        g.drawString("MONEY: " + game.getMoney(), 1700, 200);
     }
 }

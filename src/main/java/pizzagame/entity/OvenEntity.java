@@ -1,8 +1,14 @@
 package pizzagame.entity;
 
+import pizzagame.Game;
+
 public class OvenEntity extends Entity {
     private boolean isUnlocked;
     private PizzaEntity cooking;
+
+    public OvenEntity(Game game) {
+        super(game);
+    }
 
     public boolean isUnlocked() {
         return isUnlocked;

@@ -1,8 +1,14 @@
 package pizzagame.entity;
 
+import pizzagame.Game;
+
 public abstract class DraggableEntity extends Entity {
 
     private int originalX, originalY;
+
+    public DraggableEntity(Game game) {
+        super(game);
+    }
 
     public abstract boolean dropInto(Entity entity);
 

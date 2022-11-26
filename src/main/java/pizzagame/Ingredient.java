@@ -39,8 +39,8 @@ public enum Ingredient {
         return sprite;
     }
 
-    public IngredientEntity createEntity(int x, int y, int count) {
-        IngredientEntity entity = new IngredientEntity(this, sprite, count);
+    public IngredientEntity createEntity(Game game, int x, int y, int count) {
+        IngredientEntity entity = new IngredientEntity(game, this, sprite, count);
         entity.setX(x);
         entity.setY(y);
         return entity;

@@ -1,5 +1,6 @@
 package pizzagame.entity;
 
+import pizzagame.Game;
 import pizzagame.Sprite;
 
 import java.awt.*;
@@ -10,6 +11,12 @@ public class Entity {
     protected Sprite sprite;
 
     private boolean discarded;
+
+    protected Game game;
+
+    public Entity(Game game) {
+        this.game = game;
+    }
 
     public boolean isDiscarded() {
         return discarded;
@@ -53,6 +60,10 @@ public class Entity {
     }
 
     public void drawMouseOver(Graphics g, Point p) {
+
+    }
+
+    public void tick() {
 
     }
 

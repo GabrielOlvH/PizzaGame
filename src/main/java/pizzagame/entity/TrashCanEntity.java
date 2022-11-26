@@ -1,11 +1,13 @@
 package pizzagame.entity;
 
+import pizzagame.Game;
 import pizzagame.Sprite;
 
 import java.awt.*;
 
 public class TrashCanEntity extends Entity{
-    public TrashCanEntity(){
+    public TrashCanEntity(Game game) {
+        super(game);
         this.sprite = new Sprite("/assets/trashCan.png",160,160);
     }
 

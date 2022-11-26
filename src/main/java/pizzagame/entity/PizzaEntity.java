@@ -1,5 +1,6 @@
 package pizzagame.entity;
 
+import pizzagame.Game;
 import pizzagame.Ingredient;
 import pizzagame.PizzaType;
 import pizzagame.Sprite;
@@ -10,18 +11,32 @@ import java.util.List;
 
 public class PizzaEntity extends DraggableEntity {
 
-    public PizzaEntity() {
+    private PizzaType type;
+
+    public PizzaEntity(Game game) {
+        super(game);
         this.sprite = new Sprite("/assets/empty_pizza.png", 688/2, 438/2);
     }
 
-    public void setTypeSprite(PizzaType type) {
+    public void setType(PizzaType type) {
+        this.type = type;
         this.sprite = type.getSprite();
+    }
+
+    public PizzaType getType() {
+        return type;
     }
 
     private final List<Ingredient> ingredients = new ArrayList<>();
 
     public List<Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public boolean addIngredient(Ingredient i) {
+        if (ingredients.size() >= 6) return false;
+        ingredients.add(i);
+        return true;
     }
 
     @Override
@@ -37,8 +52,13 @@ public class PizzaEntity extends DraggableEntity {
 
     @Override
     public boolean dropInto(Entity entity) {
-        if (entity instanceof TrashCanEntity){
+        if (entity instanceof TrashCanEntity) {
             discard();
+            return true;
+        } else if (entity instanceof OrderEntity order && order.isActive()) {
+            order.deliver(this);
+            discard();
+            return true;
         }
         return false;
     }
