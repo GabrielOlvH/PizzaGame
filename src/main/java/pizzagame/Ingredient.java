@@ -18,8 +18,8 @@ public enum Ingredient {
     PEPPERONI("Pepperoni",  new Sprite("/assets/ingredients/pepperoni.png", 96, 96)),
     RED_BELL_PEPPER("Red Bell Pepper", new Sprite("/assets/ingredients/bell_pepper.png",96,116)),
     YELLOW_BELL_PEPPER("Yellow Bell Pepper",new Sprite("/assets/ingredients/yellow_bell_pepper.png",96,116)),
-    MARSHMELLOW("Marshmellow",new Sprite("/assets/ingredients/marshmellow.png",96,96));
-    //STRAWBERRY("Strawberry",new Sprite("/assets/ingredients/strawberry.png",142,96));//
+    //MARSHMELLOW("Marshmellow",new Sprite("/assets/ingredients/marshmellow.png",96,96));//
+    STRAWBERRY("Strawberry",new Sprite("/assets/ingredients/morango.png",84,84));
 
 
 

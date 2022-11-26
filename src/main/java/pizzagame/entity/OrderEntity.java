@@ -1,9 +1,6 @@
 package pizzagame.entity;
 
-import pizzagame.Client;
-import pizzagame.Game;
-import pizzagame.Ingredient;
-import pizzagame.PizzaType;
+import pizzagame.*;
 
 import java.awt.*;
 import java.util.List;
@@ -95,7 +92,7 @@ public class OrderEntity extends Entity {
         g.setFont(Client.FONT.deriveFont(10f));
 
         g.setColor(Color.WHITE);
-        g.fillRect(getX(), getY(), getWidth(), getHeight());
+        this.sprite = new Sprite("/assets/note.png",384,90);
         g.setColor(Color.BLACK);
         g.drawString(type.getName(), getX() + 22, getY()+ 22);
         int x = getX() + 22;
