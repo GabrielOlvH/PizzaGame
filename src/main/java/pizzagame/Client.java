@@ -56,18 +56,20 @@ public class Client extends JFrame {
                 try {
                     long timeElapsed = System.currentTimeMillis();
                     game.tick();
-                    game.getScreen().repaint();
-
                     timeElapsed = System.currentTimeMillis() - timeElapsed;
                     if (timeElapsed < 20) {
                         Thread.sleep(20 - timeElapsed);
+                    } else {
+                        System.out.println("BEHIND " + timeElapsed + " ms");
                     }
+                    game.getScreen().repaint();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
         mainThread.start();
+
         validate();
     }
 

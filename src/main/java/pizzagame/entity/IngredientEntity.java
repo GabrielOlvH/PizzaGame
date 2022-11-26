@@ -9,42 +9,52 @@ import java.awt.*;
 
 public class IngredientEntity extends DraggableEntity {
 
-    private final Ingredient ingredient;
-    private int count;
+    private Ingredient ingredient = null;
 
-    public IngredientEntity(Game game, Ingredient ingredient, Sprite sprite, int count) {
+    public IngredientEntity(Game game) {
         super(game);
-        this.sprite = sprite;
+    }
+
+    public void setIngredient(Ingredient ingredient) {
         this.ingredient = ingredient;
-        this.count = count;
+        if (ingredient != null)
+            this.sprite = ingredient.getSprite();
+    }
+
+    public boolean isEmpty() {
+        return ingredient == null || !game.getAvailableIngredients().containsKey(ingredient);
+    }
+
+    public int getCount() {
+        return game.getAvailableIngredients().get(ingredient);
     }
 
     @Override
     public boolean dropInto(Entity entity) {
-        if (entity instanceof PizzaEntity pizza && pizza.addIngredient(ingredient)) {
-            count--;
+        if (!isEmpty() && entity instanceof PizzaEntity pizza && pizza.addIngredient(ingredient)) {
+            int count = getCount() - 1;
+            game.getAvailableIngredients().put(ingredient, count);
             if (count <= 0) {
-                discard();
-            } else {
-                setX(getOriginalX());
-                setY(getOriginalY());
+                game.getAvailableIngredients().remove(ingredient);
+                game.updateIngredients();
             }
-            return true;
         }
         return false;
     }
 
     @Override
     public void draw(Graphics g) {
+        if (isEmpty()) return;
         super.draw(g);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setFont(Client.FONT.deriveFont(20f));
         g.setColor(Color.BLACK);
-        g.drawString(count+"", getX() + getWidth() - g.getFontMetrics().stringWidth(count+""), getY() + getHeight());
+        g.drawString(getCount()+"", getX() + getWidth() - g.getFontMetrics().stringWidth(getCount()+""), getY() + getHeight());
     }
 
     @Override
     public void drawMouseOver(Graphics g, Point p) {
+        if (isEmpty()) return;
         g.setColor(new Color(0,0,0,125));
         g.setFont(Client.FONT.deriveFont(15f));
         g.fillRect(p.x-8, p.y, g.getFontMetrics().stringWidth(ingredient.getName()) + 16, g.getFontMetrics().getHeight() + 16);

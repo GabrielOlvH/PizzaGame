@@ -5,7 +5,6 @@ import pizzagame.entity.DraggableEntity;
 import pizzagame.entity.Entity;
 
 import javax.swing.event.MouseInputAdapter;
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class GameMouseListener extends MouseInputAdapter {

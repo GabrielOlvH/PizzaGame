@@ -11,6 +11,8 @@ public class Game {
     private Random random;
     private GameScreen screen;
     private List<Entity> entities;
+    private Map<Ingredient, Integer> availableIngredients = new HashMap<>();
+    private int ingredientsPage = 0;
 
     private int money;
 
@@ -52,14 +54,54 @@ public class Game {
             entities.add(order);
         }
 
+        for (int i = 0; i < 16; i++) {
+            int x = i % 8;
+            int y = i / 8;
+            IngredientEntity entity = new IngredientEntity(this);
+            entity.setX(740 + x * 128);
+            entity.setY(790 + y * 130 + (random.nextInt(10) - 20));
+            entities.add(entity);
+        }
+
     }
 
     public void initIngredients() {
-        for (int i = 0; i < Ingredient.ALL.length; i++) {
-            Ingredient ing = Ingredient.ALL[i];
-            int x = i % 8;
-            int y = i / 8;
-            entities.add(ing.createEntity(this, 740+ x * 140 - (ing.getSprite().getWidth()-96)/2, 790+ y*140 -(ing.getSprite().getHeight()-96)/2, 5));
+        for (Ingredient ingredient : Ingredient.ALL) {
+            availableIngredients.put(ingredient, 5);
+        }
+
+        updateIngredients();
+    }
+
+    public void updateIngredients() {
+        Iterator<Map.Entry<Ingredient, Integer>> it = availableIngredients.entrySet().iterator();
+        if (availableIngredients.size() > ingredientsPage * 16) {
+            for (int i = 0; i < ingredientsPage * 16; i++) {
+                it.next();
+            }
+        }
+        entities.stream().filter(e -> e instanceof IngredientEntity).forEach(e -> {
+            IngredientEntity entity = (IngredientEntity) e;
+            if (it.hasNext()) {
+                Map.Entry<Ingredient, Integer> entry = it.next();
+                entity.setIngredient(entry.getKey());
+            } else {
+                entity.setIngredient(null);
+            }
+        });
+    }
+
+    public void nextPage() {
+        if (this.ingredientsPage < this.availableIngredients.size()/16) {
+            this.ingredientsPage++;
+            this.updateIngredients();
+        }
+    }
+
+    public void prevPage() {
+        if (ingredientsPage > 0) {
+            this.ingredientsPage--;
+            this.updateIngredients();
         }
     }
 
@@ -93,6 +135,10 @@ public class Game {
             e.setX(240);
             e.setY(800);
         }
+    }
+
+    public Map<Ingredient, Integer> getAvailableIngredients() {
+        return availableIngredients;
     }
 
     public int getMoney() {

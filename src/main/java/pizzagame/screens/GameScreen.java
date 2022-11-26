@@ -18,6 +18,9 @@ public class GameScreen extends JPanel {
     private JButton backToMenu;
     private JButton addPizzaButton;
 
+    private JButton nextIngredientPage;
+    private JButton prevIngredientPage;
+
     public GameScreen(Game game) {
         this.game = game;
         setLayout(null);
@@ -43,6 +46,27 @@ public class GameScreen extends JPanel {
             }
         });
         add(this.addPizzaButton);
+
+        this.nextIngredientPage = new MenuButton(">");
+        this.nextIngredientPage.setFont(Client.FONT.deriveFont(50f));
+        this.nextIngredientPage.setBounds(game.getClient().getWidth() - 150, game.getClient().getHeight() - 200, 100, 100);
+        this.nextIngredientPage.addActionListener((e) -> {
+            if (e.getID() == ActionEvent.ACTION_PERFORMED) {
+                game.nextPage();
+            }
+        });
+        add(this.nextIngredientPage);
+
+        this.prevIngredientPage = new MenuButton("<");
+        this.prevIngredientPage.setFont(Client.FONT.deriveFont(50f));
+        this.prevIngredientPage.setBounds(game.getClient().getWidth() - 1300, game.getClient().getHeight() - 200, 100, 100);
+        this.prevIngredientPage.addActionListener((e) -> {
+            if (e.getID() == ActionEvent.ACTION_PERFORMED) {
+                game.prevPage();
+            }
+        });
+        add(this.prevIngredientPage);
+
     }
 
     @Override
