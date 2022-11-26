@@ -129,7 +129,7 @@ public class Game {
             addRandomOrder();
         }
 
-        for (Entity e : entities) {
+        for (Entity e : new ArrayList<>(entities)) {
             e.tick();
         }
 
