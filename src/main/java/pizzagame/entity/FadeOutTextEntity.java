@@ -14,6 +14,7 @@ public class FadeOutTextEntity extends Entity {
         super(game);
         this.text = text;
         this.color = color;
+        this.z = 100;
     }
 
     @Override

@@ -63,6 +63,15 @@ public class Game {
             entities.add(entity);
         }
 
+        OvenEntity oven = new OvenEntity(this);
+        oven.setPos(790, 580);
+        entities.add(oven);
+
+        OvenEntity secondOven = new OvenEntity(this);
+        secondOven.setUnlocked(false);
+        secondOven.setPos(790 + oven.getWidth() + 16, 580);
+        entities.add(secondOven);
+
     }
 
     public void initIngredients() {
@@ -129,12 +138,17 @@ public class Game {
     }
 
     public void addPizzaDough() {
-        if (entities.stream().noneMatch(e -> e instanceof PizzaEntity)) {
+        if (entities.stream().noneMatch(e -> e instanceof PizzaEntity pizza && pizza.getCookingTime() == 0)) {
             PizzaEntity e = new PizzaEntity(this);
-            entities.add(1, e);
-            e.setX(240);
-            e.setY(800);
+            e.setPos(240, 800);
+            entities.add(e);
         }
+    }
+
+    public void showFadeOutText(String text, int color, int x, int y) {
+        FadeOutTextEntity txt = new FadeOutTextEntity(this, text, color);
+        txt.setPos(x, y);
+        entities.add(txt);
     }
 
     public Map<Ingredient, Integer> getAvailableIngredients() {
@@ -147,10 +161,7 @@ public class Game {
 
     public void addMoney(int money) {
         this.money += money;
-        FadeOutTextEntity txt = new FadeOutTextEntity(this, "+" + money, 0x00FF00);
-        txt.setX(1650);
-        txt.setY(200);
-        entities.add(txt);
+        showFadeOutText("+" + money, 0x00FF00, 1650, 200);
     }
 
     public Client getClient() {

@@ -6,11 +6,12 @@ import pizzagame.Sprite;
 import java.awt.*;
 
 public class Entity {
-    private int x, y;
+    protected int x, y;
+    protected int z; //used for rendering order
 
     protected Sprite sprite;
 
-    private boolean discarded;
+    public boolean discarded;
 
     protected Game game;
 
@@ -42,6 +43,19 @@ public class Entity {
         this.y = y;
     }
 
+    public int getZ() {
+        return z;
+    }
+
+    public void setZ(int z) {
+        this.z = z;
+    }
+
+    public void setPos(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
     public Sprite getSprite() {
         return sprite;
     }
@@ -64,6 +78,10 @@ public class Entity {
     }
 
     public void tick() {
+
+    }
+
+    public void onClick(int x, int y) {
 
     }
 

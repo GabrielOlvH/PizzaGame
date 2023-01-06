@@ -12,15 +12,25 @@ import java.util.List;
 public class PizzaEntity extends DraggableEntity {
 
     private PizzaType type;
+    private int cookingTime;
 
     public PizzaEntity(Game game) {
         super(game);
         this.sprite = new Sprite("/assets/empty_pizza.png", 688/2, 438/2);
+        this.cookingTime = 0;
     }
 
     public void setType(PizzaType type) {
         this.type = type;
         this.sprite = type.getSprite();
+    }
+
+    public int getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(int cookingTime) {
+        this.cookingTime = cookingTime;
     }
 
     public PizzaType getType() {
@@ -37,6 +47,10 @@ public class PizzaEntity extends DraggableEntity {
         if (ingredients.size() >= 6) return false;
         ingredients.add(i);
         return true;
+    }
+
+    public boolean isCookingPointGood() {
+        return cookingTime > 300 && cookingTime < 360;
     }
 
     @Override
@@ -57,6 +71,10 @@ public class PizzaEntity extends DraggableEntity {
             return true;
         } else if (entity instanceof OrderEntity order && order.isActive()) {
             order.deliver(this);
+            discard();
+            return true;
+        } else if (entity instanceof OvenEntity oven && oven.getCooking() == null) {
+            oven.startCooking(this);
             discard();
             return true;
         }

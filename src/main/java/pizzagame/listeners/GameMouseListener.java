@@ -6,6 +6,7 @@ import pizzagame.entity.Entity;
 
 import javax.swing.event.MouseInputAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Comparator;
 
 public class GameMouseListener extends MouseInputAdapter {
 
@@ -13,6 +14,7 @@ public class GameMouseListener extends MouseInputAdapter {
 
     private DraggableEntity dragging;
     private MouseEvent pressed;
+    private int prevZ;
 
     public GameMouseListener(Game game) {
         this.game = game;
@@ -24,11 +26,17 @@ public class GameMouseListener extends MouseInputAdapter {
         pressed = me;
         Entity entity = game.getEntities().stream()
                 .filter(e -> me.getX() > e.getX() && me.getX() < e.getX() + e.getWidth() && me.getY() > e.getY() && me.getY() < e.getY() + e.getHeight())
+                .sorted(Comparator.comparingInt(e -> -e.getZ()))
                 .findFirst()
                 .orElse(null);
 
+        if (entity != null)
+            entity.onClick(me.getX(), me.getY());
+
         if (entity instanceof DraggableEntity drag) {
             dragging = drag;
+            prevZ = dragging.getZ();
+            dragging.setZ(10); // render dragging entity on top of others
             dragging.setOriginalX(drag.getX());
             dragging.setOriginalY(drag.getY());
         }
@@ -43,9 +51,12 @@ public class GameMouseListener extends MouseInputAdapter {
                 .findFirst()
                 .orElse(null);
 
-        if (dragging != null && !dragging.dropInto(other)) {
-            dragging.setX(dragging.getOriginalX());
-            dragging.setY(dragging.getOriginalY());
+        if (dragging != null) {
+            dragging.setZ(prevZ);
+            if (!dragging.dropInto(other)) {
+                dragging.setX(dragging.getOriginalX());
+                dragging.setY(dragging.getOriginalY());
+            }
         }
         dragging = null;
     }

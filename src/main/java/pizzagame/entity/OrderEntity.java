@@ -7,7 +7,7 @@ import java.util.List;
 
 public class OrderEntity extends Entity {
 
-    public static final int MAX_TIME = 20 * 60;
+    public static final int MAX_TIME = 20 * 120;
     private PizzaType type;
     private List<Ingredient> ingredients;
     private int ticksRemaining;
@@ -55,10 +55,7 @@ public class OrderEntity extends Entity {
             color = 0xFF0000;
         }
         game.addMoney(50);
-        FadeOutTextEntity txtEntity = new FadeOutTextEntity(game, txt, color);
-        txtEntity.setX(getX() + getWidth() / 2);
-        txtEntity.setY(getY() + getHeight() / 2 + 32) ;
-        game.getEntities().add(txtEntity);
+        game.showFadeOutText(txt, color, getX() + getWidth() / 2, getY() + getHeight() / 2 + 32);
 
         this.active = false;
     }
@@ -69,10 +66,7 @@ public class OrderEntity extends Entity {
 
         if (ticksRemaining <= 0 && active) {
             active = false;
-            FadeOutTextEntity txtEntity = new FadeOutTextEntity(game, "Too late!", 0xFF0000);
-            txtEntity.setX(getX() + getWidth() / 2);
-            txtEntity.setY(getY() + getHeight() / 2 + 32) ;
-            game.getEntities().add(txtEntity);
+            game.showFadeOutText("Too late!", 0xFF0000, getX() + getWidth() / 2, getY() + getHeight() / 2 + 32);
         }
     }
 
@@ -90,6 +84,7 @@ public class OrderEntity extends Entity {
     public void draw(Graphics g) {
         if (!active) return;
         super.draw(g);
+        ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g.setFont(Client.FONT.deriveFont(10f));
 
         g.setColor(Color.BLACK);
@@ -107,10 +102,11 @@ public class OrderEntity extends Entity {
             x += g.getFontMetrics().stringWidth(ing.getName()) + 22;
 
         }
-        g.setColor(Color.RED);
+        g.setColor(new Color(217, 185, 120));
         g.fillRect(getX(), getHeight() - 18, getWidth(), 18);
-        g.setColor(Color.GREEN);
-        g.fillRect(getX(), getHeight() - 18, (int)(getWidth() * (ticksRemaining / (float) MAX_TIME)), 18);
+        float p = (ticksRemaining / (float) MAX_TIME);
+        g.setColor(new Color(1f-p, p, 0));
+        g.fillRect(getX(), getHeight() - 18, (int)(getWidth() * p), 18);
 
     }
 }
