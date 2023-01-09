@@ -12,9 +12,14 @@ public class Game {
     private GameScreen screen;
     private List<Entity> entities;
     private Map<Ingredient, Integer> availableIngredients = new HashMap<>();
+    private Statistics statistics = new Statistics();
     private int ingredientsPage = 0;
-
+    private boolean shopMode = false;
     private int money;
+    private int day;
+    private int month;
+
+    private List<Boolean> ordersDelivered = new ArrayList<>();
 
     public Game(Client client, String playerName) {
         this.client = client;
@@ -161,7 +166,18 @@ public class Game {
 
     public void addMoney(int money) {
         this.money += money;
+        statistics.moneyGained += money;
         showFadeOutText("+" + money, 0x00FF00, 1650, 200);
+    }
+
+    public void takeMoney(int money) {
+        this.money -= money;
+        statistics.moneySpent += money;
+        showFadeOutText("-" + money, 0xFF0000, 1650, 200);
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 
     public Client getClient() {
@@ -180,9 +196,63 @@ public class Game {
         return entities;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public boolean isShopMode() {
+        return shopMode;
+    }
+
+    public void toggleShopMode() {
+        this.shopMode = !this.shopMode;
+    }
+
+    public List<Boolean> getOrdersDelivered() {
+        return ordersDelivered;
+    }
+
+    public int getReputation() {
+        if (ordersDelivered.size() < 10) {
+            return 5;
+        } else {
+            int t = 0;
+            for (int i = ordersDelivered.size() - 10; i < ordersDelivered.size(); i++) {
+                if (ordersDelivered.get(i)) t++;
+            }
+
+            return (t/10);
+        }
+    }
+
     public void tick() {
+        statistics.runTicks++;
+        int dayProgress = statistics.runTicks % (20 * 60 * 10);
+        if (dayProgress == 0) {
+            day++;
+            if (day == 30) {
+                month++;
+                day = 0;
+                getActiveOrders().forEach(OrderEntity::expire);
+            }
+            StatisticsDisplayEntity e = new StatisticsDisplayEntity(this);
+            e.setX(1920);
+            e.setY(250);
+            entities.add(e);
+        }
+        int maxOrders;
+        int rep = getReputation();
+        if (rep > 8) maxOrders = 4;
+        else if (rep > 5) maxOrders = 3;
+        else if (rep > 2) maxOrders = 2;
+        else maxOrders = 1;
+
         List<OrderEntity> activeOrders = getActiveOrders();
-        if (activeOrders.size() < 4 && random.nextFloat() > 0.97) {
+        if (activeOrders.size() < maxOrders && random.nextFloat() > 0.97 && dayProgress < 20 * 60 * 9) {
             addRandomOrder();
         }
 

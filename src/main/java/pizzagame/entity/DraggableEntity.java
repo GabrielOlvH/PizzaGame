@@ -10,6 +10,10 @@ public abstract class DraggableEntity extends Entity {
         super(game);
     }
 
+    public boolean canDrag() {
+        return true;
+    }
+
     public abstract boolean dropInto(Entity entity);
 
     public void setOriginalX(int originalX) {

@@ -18,4 +18,5 @@ public class MenuButton extends JButton {
         setFocusPainted(false);
         setRolloverEnabled(false);
     }
+
 }

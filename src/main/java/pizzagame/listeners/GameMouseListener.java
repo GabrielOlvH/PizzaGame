@@ -33,7 +33,7 @@ public class GameMouseListener extends MouseInputAdapter {
         if (entity != null)
             entity.onClick(me.getX(), me.getY());
 
-        if (entity instanceof DraggableEntity drag) {
+        if (entity instanceof DraggableEntity drag && drag.canDrag()) {
             dragging = drag;
             prevZ = dragging.getZ();
             dragging.setZ(10); // render dragging entity on top of others

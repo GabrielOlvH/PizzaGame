@@ -68,6 +68,7 @@ public class PizzaEntity extends DraggableEntity {
     public boolean dropInto(Entity entity) {
         if (entity instanceof TrashCanEntity) {
             discard();
+            game.getStatistics().discardedPizzas++;
             return true;
         } else if (entity instanceof OrderEntity order && order.isActive()) {
             order.deliver(this);

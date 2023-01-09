@@ -3,11 +3,12 @@ package pizzagame.entity;
 import pizzagame.*;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.List;
 
 public class OrderEntity extends Entity {
 
-    public static final int MAX_TIME = 20 * 120;
+    public static final int MAX_TIME = 20 * 5 * 60;
     private PizzaType type;
     private List<Ingredient> ingredients;
     private int ticksRemaining;
@@ -47,16 +48,26 @@ public class OrderEntity extends Entity {
     public void deliver(PizzaEntity pizza) {
         String txt;
         int color;
-        if (pizza.getType() == type && ingredients.equals(pizza.getIngredients())) {
+        if (!pizza.isCookingPointGood()) {
+            txt = "Badly cooked!";
+            color = 0xFF0000;
+            game.getStatistics().wrongOrders++;
+            game.getOrdersDelivered().add(false);
+            game.addMoney(40);
+        } else if (pizza.getType() == type && ingredients.containsAll(pizza.getIngredients()) && pizza.getIngredients().containsAll(ingredients)) {
             txt = "Correct order!";
             color = 0x00FF00;
+            game.getStatistics().correctOrders++;
+            game.getOrdersDelivered().add(true);
+            game.addMoney(80);
         } else {
             txt = "Wrong order!";
             color = 0xFF0000;
+            game.getStatistics().wrongOrders++;
+            game.getOrdersDelivered().add(false);
+            game.addMoney(20);
         }
-        game.addMoney(50);
         game.showFadeOutText(txt, color, getX() + getWidth() / 2, getY() + getHeight() / 2 + 32);
-
         this.active = false;
     }
 
@@ -67,7 +78,12 @@ public class OrderEntity extends Entity {
         if (ticksRemaining <= 0 && active) {
             active = false;
             game.showFadeOutText("Too late!", 0xFF0000, getX() + getWidth() / 2, getY() + getHeight() / 2 + 32);
+            game.getStatistics().timedOutOrders++;
         }
+    }
+
+    public void expire() {
+        ticksRemaining = 0;
     }
 
     @Override
