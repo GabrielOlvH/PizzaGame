@@ -20,9 +20,9 @@ public class MenuScreen extends JPanel {
         setOpaque(false);
         setLayout(null);
         play = new MenuButton("Play");
-        play.setFont(Client.FONT.deriveFont(30f));
+        play.setFont(Client.FONT.deriveFont(30f*.66f));
         play.setForeground(new Color(88, 2, 16));
-        play.setBounds(890, 495, 280, 80);
+        play.setBounds(890-(int)(890*.33), 495-(int)(495*.33), (int)(280*.66), (int)(80*.66));
         //play.setIcon(new ImageIcon(new Sprite("/assets/icon.png", 128, 128).getImage()));
         play.addActionListener(e -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
@@ -34,8 +34,8 @@ public class MenuScreen extends JPanel {
         add(play);
 
         close = new MenuButton("X");
-        close.setFont(Client.FONT.deriveFont(50f));
-        close.setBounds(client.getWidth() - 120, 20, 100, 100);
+        close.setFont(Client.FONT.deriveFont(50f*.66f));
+        close.setBounds(1200, 10, 100, 100);
         close.setForeground(Color.WHITE);
         close.addActionListener(e -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
@@ -53,14 +53,14 @@ public class MenuScreen extends JPanel {
         super.paintComponent(g);
         g.drawImage(MENU_BACKGROUND.getImage(), 0, 0, g.getClipBounds().width, g.getClipBounds().height, null);
 
-        g.drawImage(SMALL_SIGN.getImage(), 800, 160, 512, 512, null);
-        g.drawImage(HANGING_SIGN.getImage(), 350, -400, null);
+        g.drawImage(SMALL_SIGN.getImage(), 800-(int)(800*.33), 160-(int)(160*.33), (int)(512*0.66), (int)(512*.66), null);
+        g.drawImage(HANGING_SIGN.getImage(), 350-(int)(300*.33), -400 -(int) (-400*.33), (int)(1024*.66), (int)(1024*.66), null);
 
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setFont(Client.FONT.deriveFont(Font.ITALIC, 70f));
+        g.setFont(Client.FONT.deriveFont(Font.ITALIC, 70f*.66f));
         g.setColor(new Color(88, 2, 16));
-        g.drawString("PizzIA", 570, 250);
-        g.drawString("Simulator", 600, 375);
+        g.drawString("PizzIA", 570-(int)(570*.33), 250-(int)(250*.33));
+        g.drawString("Simulator", 600-(int)(600*.33), 375-(int)(375*.33));
 
 
     }

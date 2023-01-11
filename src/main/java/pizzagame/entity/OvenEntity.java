@@ -31,12 +31,12 @@ public class OvenEntity extends Entity {
 
     @Override
     public int getWidth() {
-        return 128+32;
+        return (int)((128+32)*.66);
     }
 
     @Override
     public int getHeight() {
-        return 128;
+        return (int)(128*.66);
     }
 
     @Override
@@ -47,6 +47,10 @@ public class OvenEntity extends Entity {
 
     @Override
     public void onClick(int x, int y) {
+        if (!isUnlocked && game.isShopMode() && game.getMoney() >= 300) {
+            this.isUnlocked = true;
+            game.takeMoney(300);
+        }
         if (cooking != null) {
             cooking.setPos(getX() - getWidth() / 2, getY());
             cooking.discarded = false;
@@ -59,12 +63,18 @@ public class OvenEntity extends Entity {
     @Override
     public void draw(Graphics g) {
 
-        g.setFont(g.getFont().deriveFont(15f));
+        g.setFont(g.getFont().deriveFont(15f*.66f));
         g.setColor(new Color(0,0,0,125));
         g.fillRect(getX(), getY() - g.getFontMetrics().getHeight()/2 - 10, getWidth(), g.getFontMetrics().getHeight());
         g.setColor(Color.WHITE);
-        if (!isUnlocked())
-            g.drawString("Locked!", getX() - g.getFontMetrics().stringWidth("Locked!")/2 + getWidth() / 2, getY());
+        if (!isUnlocked()) {
+            if (game.isShopMode()) {
+                g.drawString("Desbloquear", getX() - g.getFontMetrics().stringWidth("Desbloquear")/2 + getWidth() / 2, getY());
+                g.drawString("$300", getX() - g.getFontMetrics().stringWidth("$300")/2 + getWidth() / 2, getY() + 22);
+            } else {
+                g.drawString("Locked!", getX() - g.getFontMetrics().stringWidth("Locked!")/2 + getWidth() / 2, getY());
+            }
+        }
         else if (cooking != null) {
             g.drawString("Cooking...", getX() - g.getFontMetrics().stringWidth("Cooking...")/2 + getWidth() / 2, getY());
             g.fillRect(getX(), getY() + 9, getWidth(), 16);

@@ -32,8 +32,8 @@ public class GameScreen extends JPanel {
         addMouseListener(mouseListener);
         addMouseMotionListener(mouseListener);
         this.backToMenu = new MenuButton("MENU");
-        this.backToMenu.setFont(Client.FONT.deriveFont(30f));
-        this.backToMenu.setBounds(game.getClient().getWidth() - 450, 0, 450, 100);
+        this.backToMenu.setFont(Client.FONT.deriveFont(30f*.66f));
+        this.backToMenu.setBounds(game.getClient().getWidth() - 300, 0, (int)(450*.66f), (int)(100*.66f));
         this.backToMenu.addActionListener((e) -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 game.getClient().stopGame(new MenuScreen(game.getClient()));
@@ -42,9 +42,9 @@ public class GameScreen extends JPanel {
         add(this.backToMenu);
 
         this.addPizzaButton = new MenuButton("NOVA PIZZA");
-        this.addPizzaButton.setIcon(new ImageIcon(new Sprite("/assets/flour.png",  128, 128).getImage()));
-        this.addPizzaButton.setFont(Client.FONT.deriveFont(15f));
-        this.addPizzaButton.setBounds(game.getClient().getWidth() - 550, 550, 250, 150);
+        this.addPizzaButton.setIcon(new ImageIcon(new Sprite("/assets/flour.png",  (int)(128*.66f), (int)(128*.66f)).getImage()));
+        this.addPizzaButton.setFont(Client.FONT.deriveFont(15f*.66f));
+        this.addPizzaButton.setBounds(game.getClient().getWidth() - 363, 363, (int)(250*.66f), (int)(150*.66f));
         this.addPizzaButton.addActionListener((e) -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 game.addPizzaDough();
@@ -55,8 +55,8 @@ public class GameScreen extends JPanel {
         add(this.addPizzaButton);
 
         this.nextIngredientPage = new MenuButton(">");
-        this.nextIngredientPage.setFont(Client.FONT.deriveFont(50f));
-        this.nextIngredientPage.setBounds(game.getClient().getWidth() - 150, game.getClient().getHeight() - 200, 100, 100);
+        this.nextIngredientPage.setFont(Client.FONT.deriveFont(50f*.66f));
+        this.nextIngredientPage.setBounds(game.getClient().getWidth() - 150, game.getClient().getHeight() - 132, (int)(100*.66f), (int)(100*.66f));
         this.nextIngredientPage.addActionListener((e) -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 game.nextPage();
@@ -65,8 +65,8 @@ public class GameScreen extends JPanel {
         add(this.nextIngredientPage);
 
         this.prevIngredientPage = new MenuButton("<");
-        this.prevIngredientPage.setFont(Client.FONT.deriveFont(50f));
-        this.prevIngredientPage.setBounds(game.getClient().getWidth() - 1300, game.getClient().getHeight() - 200, 100, 100);
+        this.prevIngredientPage.setFont(Client.FONT.deriveFont(50f*.66f));
+        this.prevIngredientPage.setBounds(game.getClient().getWidth() - 858, game.getClient().getHeight() - 132, (int)(100*.66f), (int)(100*.66f));
         this.prevIngredientPage.addActionListener((e) -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 game.prevPage();
@@ -76,8 +76,8 @@ public class GameScreen extends JPanel {
 
         this.shopButton = new MenuButton("LOJA");
         this.shopButton.setIcon(new ImageIcon(new Sprite("/assets/shop_icon.png",  80, 83).getImage()));
-        this.shopButton.setFont(Client.FONT.deriveFont(15f));
-        this.shopButton.setBounds(game.getClient().getWidth() - 100, game.getClient().getHeight() - 300, 80, 120);
+        this.shopButton.setFont(Client.FONT.deriveFont(15f*.66f));
+        this.shopButton.setBounds(game.getClient().getWidth() - 100, game.getClient().getHeight() - 200, (int)(80*.66f), (int)(120*.66f));
         this.shopButton.addActionListener((e) -> {
             if (e.getID() == ActionEvent.ACTION_PERFORMED) {
                 game.toggleShopMode();
@@ -106,12 +106,12 @@ public class GameScreen extends JPanel {
             }
         });
 
-        g.setFont(g.getFont().deriveFont(12f));
+        g.setFont(g.getFont().deriveFont(12f*.66f));
         g.setColor(new Color(0,0,0,125));
-        g.fillRect(1700 - 32, 170 - 32, 1920-1700, 96);
+        g.fillRect(1100- 32, (int)((170 - 32)*.66), 1280-1100, (int)(96*.66));
         g.setColor(Color.WHITE);
-        g.drawString("MES " + game.getMonth() + "   DIA " + game.getDay(), 1700, 170);
-        g.drawString("DINHEIRO: $" + game.getMoney(), 1700, 220);
+        g.drawString("MES " + game.getMonth() + "   DIA " + game.getDay(), (int)(1700*.66), (int)(170*.66));
+        g.drawString("DINHEIRO: $" + game.getMoney(), (int)(1700*.66), (int)(220*.66));
 
     }
 }

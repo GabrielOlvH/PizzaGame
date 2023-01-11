@@ -16,23 +16,23 @@ public class StatisticsDisplayEntity extends Entity {
 
     @Override
     public int getHeight() {
-        return 512;
+        return (int)(512*.66f);
     }
 
     @Override
     public int getWidth() {
-        return 220;
+        return (int)(220*.66f);
     }
 
     @Override
     public void tick() {
         ticks++;
         if (ticks < 60) {
-            this.setX((int)(1920 - (getWidth() + 32) * getAnimationProgress(ticks / 60.0)));
+            this.setX((int)(1280 - (getWidth() + 32) * getAnimationProgress(ticks / 60.0)));
         } else if (ticks > 300) {
             this.setX(this.getX()+4);
         }
-        if (x > 1920) {
+        if (x > 1280) {
             discard();
         }
     }
@@ -41,34 +41,34 @@ public class StatisticsDisplayEntity extends Entity {
     public void draw(Graphics g) {
         super.draw(g);
         g.setColor(new Color(0,0,0,125));
-        g.setFont(Client.FONT.deriveFont(15f));
+        g.setFont(Client.FONT.deriveFont(15f*.66f));
         g.fillRect(x, y, getWidth(), getHeight());
         g.setColor(Color.WHITE);
         int cY = y + g.getFontMetrics().getHeight();
         g.drawString("ESTATISTICAS", x, cY);
-        cY += g.getFontMetrics().getHeight() + 12;
+        cY += g.getFontMetrics().getHeight() + 8;
         g.drawString("Pedidos corretos", x, cY);
-        cY += g.getFontMetrics().getHeight() + 4;
+        cY += g.getFontMetrics().getHeight() + 3;
         g.drawString("" + game.getStatistics().correctOrders, x, cY);
 
-        cY += g.getFontMetrics().getHeight() + 12;
+        cY += g.getFontMetrics().getHeight() + 8;
         g.drawString("Pedidos errados", x, cY);
-        cY += g.getFontMetrics().getHeight() + 4;
+        cY += g.getFontMetrics().getHeight() + 3;
         g.drawString("" + game.getStatistics().wrongOrders, x, cY);
 
-        cY += g.getFontMetrics().getHeight() + 12;
+        cY += g.getFontMetrics().getHeight() + 8;
         g.drawString("Pedidos atrasados", x, cY);
-        cY += g.getFontMetrics().getHeight() + 4;
+        cY += g.getFontMetrics().getHeight() + 3;
         g.drawString("" + game.getStatistics().timedOutOrders, x, cY);
 
-        cY += g.getFontMetrics().getHeight() + 12;
+        cY += g.getFontMetrics().getHeight() + 8;
         g.drawString("Dinheiro gasto", x, cY);
-        cY += g.getFontMetrics().getHeight() + 4;
+        cY += g.getFontMetrics().getHeight() + 3;
         g.drawString("" + game.getStatistics().moneySpent, x, cY);
 
-        cY += g.getFontMetrics().getHeight() + 12;
+        cY += g.getFontMetrics().getHeight() + 8;
         g.drawString("Dinheiro ganho", x, cY);
-        cY += g.getFontMetrics().getHeight() + 4;
+        cY += g.getFontMetrics().getHeight() + 3;
         g.drawString("" + game.getStatistics().moneyGained, x, cY);
 
     }

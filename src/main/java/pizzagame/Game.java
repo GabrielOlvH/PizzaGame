@@ -34,23 +34,23 @@ public class Game {
 
     private void initEntities() {
         TrashCanEntity trashCan = new TrashCanEntity(this);
-        trashCan.setX(200);
-        trashCan.setY(600);
+        trashCan.setX((int)(200*.66));
+        trashCan.setY((int)(600*.66));
         entities.add(trashCan);
 
-        SauceJarEntity cheeseJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/cheese_sauce.png", 582 / 6, 924 / 6), PizzaType.CHEESE);
-        cheeseJar.setX(20);
-        cheeseJar.setY(680);
+        SauceJarEntity cheeseJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/cheese_sauce.png", (int)((582 / 6)*.66),(int)((924 / 6)*.66)), PizzaType.CHEESE);
+        cheeseJar.setX((int)(20*.66));
+        cheeseJar.setY((int)(680*.66));
         entities.add(cheeseJar);
 
-        SauceJarEntity tomatoJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/tomato_sauce.png", 582 / 6, 924 / 6), PizzaType.TOMATO);
-        tomatoJar.setX(20);
-        tomatoJar.setY(800);
+        SauceJarEntity tomatoJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/tomato_sauce.png", (int)((582 / 6)*.66), (int)((924 / 6)*.66)), PizzaType.TOMATO);
+        tomatoJar.setX((int)(20*.66));
+        tomatoJar.setY((int)(800*.66));
         entities.add(tomatoJar);
 
-        SauceJarEntity chocolateJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/chocolate_sauce.png", 582 / 6, 924 / 6), PizzaType.CHOCOLATE);
-        chocolateJar.setX(20);
-        chocolateJar.setY(920);
+        SauceJarEntity chocolateJar = new SauceJarEntity(this, new Sprite("/assets/ingredients/chocolate_sauce.png", (int)((582 / 6)*.66), (int)((924 / 6)*.66)), PizzaType.CHOCOLATE);
+        chocolateJar.setX((int)(20*.66));
+        chocolateJar.setY((int)(920*.66));
         entities.add(chocolateJar);
 
         for (int i = 0; i < 4; i++) {
@@ -63,18 +63,18 @@ public class Game {
             int x = i % 8;
             int y = i / 8;
             IngredientEntity entity = new IngredientEntity(this);
-            entity.setX(740 + x * 128);
-            entity.setY(790 + y * 130 + (random.nextInt(10) - 20));
+            entity.setX((int)((740 + x * 128)*.66));
+            entity.setY((int)((790 + y * 130 + (random.nextInt(10) - 20))*.66));
             entities.add(entity);
         }
 
         OvenEntity oven = new OvenEntity(this);
-        oven.setPos(790, 580);
+        oven.setPos((int)(790*.66), (int)(580*.66));
         entities.add(oven);
 
         OvenEntity secondOven = new OvenEntity(this);
         secondOven.setUnlocked(false);
-        secondOven.setPos(790 + oven.getWidth() + 16, 580);
+        secondOven.setPos((int)((790*.66 + oven.getWidth() + 16)), (int)(580*.66));
         entities.add(secondOven);
 
     }
@@ -145,7 +145,7 @@ public class Game {
     public void addPizzaDough() {
         if (entities.stream().noneMatch(e -> e instanceof PizzaEntity pizza && pizza.getCookingTime() == 0)) {
             PizzaEntity e = new PizzaEntity(this);
-            e.setPos(240, 800);
+            e.setPos((int)(240*.66f), (int)(800*.66f));
             entities.add(e);
         }
     }
@@ -167,13 +167,13 @@ public class Game {
     public void addMoney(int money) {
         this.money += money;
         statistics.moneyGained += money;
-        showFadeOutText("+" + money, 0x00FF00, 1650, 200);
+        showFadeOutText("+" + money, 0x00FF00, (int)(1650*.66), (int)(200*.66));
     }
 
     public void takeMoney(int money) {
         this.money -= money;
         statistics.moneySpent += money;
-        showFadeOutText("-" + money, 0xFF0000, 1650, 200);
+        showFadeOutText("-" + money, 0xFF0000, (int)(1650*.66), (int)(200*.66));
     }
 
     public Statistics getStatistics() {
@@ -240,8 +240,8 @@ public class Game {
                 getActiveOrders().forEach(OrderEntity::expire);
             }
             StatisticsDisplayEntity e = new StatisticsDisplayEntity(this);
-            e.setX(1920);
-            e.setY(250);
+            e.setX((int)(1920*.66));
+            e.setY((int)(250*.66));
             entities.add(e);
         }
         int maxOrders;

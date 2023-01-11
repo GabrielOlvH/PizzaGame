@@ -37,6 +37,7 @@ public class Client extends JFrame {
         setUndecorated(true);
         pack();
         device.setFullScreenWindow(this);
+        device.setDisplayMode(new DisplayMode(1280, 720, 32, 60));
 
         setVisible(true);
         repaint();

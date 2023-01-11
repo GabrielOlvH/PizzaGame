@@ -16,7 +16,7 @@ public class PizzaEntity extends DraggableEntity {
 
     public PizzaEntity(Game game) {
         super(game);
-        this.sprite = new Sprite("/assets/empty_pizza.png", 688/2, 438/2);
+        this.sprite = new Sprite("/assets/empty_pizza.png", (int)((688/2)*.66f), (int)((432/2)*.66f));
         this.cookingTime = 0;
     }
 
@@ -57,10 +57,10 @@ public class PizzaEntity extends DraggableEntity {
     public void draw(Graphics g) {
         super.draw(g);
         for (int i = 0; i < ingredients.size(); i++) {
-            int x = i % 3 * 64;
-            int y = i / 3 * 64;
+            int x = i % 3 * 42;
+            int y = i / 3 * 42;
             Ingredient ing = ingredients.get(i);
-            g.drawImage(ing.getSprite().getImage(), getX() + x+64, getY() + y + 32, (int) (ing.getSprite().getWidth() / 1.5), (int)(ing.getSprite().getHeight()/1.5), null);
+            g.drawImage(ing.getSprite().getImage(), getX() + x+42, getY() + y + 21, (int) (ing.getSprite().getWidth() / 1.5), (int)(ing.getSprite().getHeight()/1.5), null);
         }
     }
 

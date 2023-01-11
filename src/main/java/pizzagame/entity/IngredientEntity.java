@@ -62,7 +62,7 @@ public class IngredientEntity extends DraggableEntity {
         if (isEmpty()) return;
         super.draw(g);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setFont(Client.FONT.deriveFont(20f));
+        g.setFont(Client.FONT.deriveFont(20f*.66f));
         g.setColor(Color.BLACK);
         g.drawString(getCount()+"", getX() + getWidth() - g.getFontMetrics().stringWidth(getCount()+""), getY() + getHeight());
 

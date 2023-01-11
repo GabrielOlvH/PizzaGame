@@ -30,7 +30,7 @@ public class OrderEntity extends Entity {
         this.ingredients = ingredients;
         this.ticksRemaining = MAX_TIME;
         this.active = true;
-        this.sprite = new Sprite("/assets/note.png",384,90);
+        this.sprite = new Sprite("/assets/note.png",(int)(384*.66),(int)(90*.66));
     }
 
     public List<Ingredient> getIngredients() {
@@ -88,12 +88,12 @@ public class OrderEntity extends Entity {
 
     @Override
     public int getWidth() {
-        return 384;
+        return (int)(384*.66);
     }
 
     @Override
     public int getHeight() {
-        return 96;
+        return (int)(96*.66);
     }
 
     @Override
@@ -101,21 +101,21 @@ public class OrderEntity extends Entity {
         if (!active) return;
         super.draw(g);
         ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g.setFont(Client.FONT.deriveFont(10f));
+        g.setFont(Client.FONT.deriveFont(10f*.66f));
 
         g.setColor(Color.BLACK);
-        g.drawString(type.getName(), getX() + 22, getY()+ 22);
-        int x = getX() + 22;
-        int y = getY() + 22;
+        g.drawString(type.getName(), getX() + 14, getY()+ 14);
+        int x = getX() + 14;
+        int y = getY() + 14;
         for (int i = 0; i < ingredients.size(); i++) {
             if (i % 3 == 0) {
-                x = getX() + 22;
-                y += 22;
+                x = getX() + 14;
+                y += 14;
 
             }
             Ingredient ing = ingredients.get(i);
             g.drawString(ing.getName(), x, y);
-            x += g.getFontMetrics().stringWidth(ing.getName()) + 22;
+            x += g.getFontMetrics().stringWidth(ing.getName()) + 14;
 
         }
         g.setColor(new Color(217, 185, 120));
