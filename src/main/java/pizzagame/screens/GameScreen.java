@@ -42,6 +42,7 @@ public class GameScreen extends JPanel {
         add(this.backToMenu);
 
         this.addPizzaButton = new MenuButton("NOVA PIZZA");
+        this.addPizzaButton.setForeground(Color.WHITE);
         this.addPizzaButton.setIcon(new ImageIcon(new Sprite("/assets/flour.png",  (int)(128*.66f), (int)(128*.66f)).getImage()));
         this.addPizzaButton.setFont(Client.FONT.deriveFont(15f*.66f));
         this.addPizzaButton.setBounds(game.getClient().getWidth() - 363, 363, (int)(250*.66f), (int)(150*.66f));
@@ -96,6 +97,7 @@ public class GameScreen extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
+        g.setColor(Color.WHITE);
         super.paintComponent(g);
         g.drawImage(GAME_BACKGROUND.getImage(), 0, 0, g.getClipBounds().width, g.getClipBounds().height, null);
         new ArrayList<>(game.getEntities()).stream().sorted(Comparator.comparingInt(Entity::getZ)).forEach(e -> e.draw(g));

@@ -19,7 +19,7 @@ public class MenuScreen extends JPanel {
     public MenuScreen(Client client) {
         setOpaque(false);
         setLayout(null);
-        play = new MenuButton("Play");
+        play = new MenuButton("Jogar");
         play.setFont(Client.FONT.deriveFont(30f*.66f));
         play.setForeground(new Color(88, 2, 16));
         play.setBounds(890-(int)(890*.33), 495-(int)(495*.33), (int)(280*.66), (int)(80*.66));

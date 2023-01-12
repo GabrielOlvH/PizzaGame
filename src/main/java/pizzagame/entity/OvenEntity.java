@@ -72,11 +72,11 @@ public class OvenEntity extends Entity {
                 g.drawString("Desbloquear", getX() - g.getFontMetrics().stringWidth("Desbloquear")/2 + getWidth() / 2, getY());
                 g.drawString("$300", getX() - g.getFontMetrics().stringWidth("$300")/2 + getWidth() / 2, getY() + 22);
             } else {
-                g.drawString("Locked!", getX() - g.getFontMetrics().stringWidth("Locked!")/2 + getWidth() / 2, getY());
+                g.drawString("Bloqueado!", getX() - g.getFontMetrics().stringWidth("Bloqueado!")/2 + getWidth() / 2, getY());
             }
         }
         else if (cooking != null) {
-            g.drawString("Cooking...", getX() - g.getFontMetrics().stringWidth("Cooking...")/2 + getWidth() / 2, getY());
+            g.drawString("Cozinhando...", getX() - g.getFontMetrics().stringWidth("Cozinhando...")/2 + getWidth() / 2, getY());
             g.fillRect(getX(), getY() + 9, getWidth(), 16);
             if (cooking.isCookingPointGood())
                 g.setColor(Color.GREEN);
@@ -87,7 +87,7 @@ public class OvenEntity extends Entity {
             float p = (Math.min(cooking.getCookingTime(), 360.0f) / 360.0f);
             g.fillRect(getX(), getY() + 9, (int) (getWidth() * p), 16);
         } else {
-            g.drawString("Drop pizza!", getX() - g.getFontMetrics().stringWidth("Drop pizza!")/2 + getWidth() / 2, getY());
+            g.drawString("Cozinhar!", getX() - g.getFontMetrics().stringWidth("Cozinhar!")/2 + getWidth() / 2, getY());
         }
     }
 }

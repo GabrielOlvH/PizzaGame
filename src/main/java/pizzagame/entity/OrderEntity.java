@@ -30,7 +30,7 @@ public class OrderEntity extends Entity {
         this.ingredients = ingredients;
         this.ticksRemaining = MAX_TIME;
         this.active = true;
-        this.sprite = new Sprite("/assets/note.png",(int)(384*.66),(int)(90*.66));
+        this.sprite = new Sprite("/assets/note.png",(int)(384*.66),(int)(122*.66));
     }
 
     public List<Ingredient> getIngredients() {
@@ -93,7 +93,7 @@ public class OrderEntity extends Entity {
 
     @Override
     public int getHeight() {
-        return (int)(96*.66);
+        return (int)(128*.66);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class OrderEntity extends Entity {
         int x = getX() + 14;
         int y = getY() + 14;
         for (int i = 0; i < ingredients.size(); i++) {
-            if (i % 3 == 0) {
+            if (i % 2 == 0) {
                 x = getX() + 14;
                 y += 14;
 
